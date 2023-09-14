@@ -1,0 +1,35 @@
+TokenType::CLASS
+TokenType::INT
+TokenType::STRING
+TokenType::FLOAT
+TokenType::IF
+TokenType::ELSE
+TokenType::DO
+TokenType::WHILE
+TokenType::READ
+TokenType::WRITE
+TokenType::GREATER_EQ
+TokenType::GREATER
+TokenType::LOWER
+TokenType::LOWER_EQ
+TokenType::NOT_EQUALS
+TokenType::EQUALS
+TokenType::AND
+TokenType::OR
+TokenType::NOT
+TokenType::ASSIGN
+TokenType::ADD
+TokenType::SUB
+TokenType::MUL
+TokenType::DIV
+TokenType::OPEN_CUR
+TokenType::CLOSE_CUR
+TokenType::OPEN_PAR
+TokenType::CLOSE_PAR
+TokenType::SEMICOLON
+TokenType::ID, lex: varname
+TokenType::LITERAL, lex: Text
+TokenType::INTEGER, lex: 123
+TokenType::INTEGER, lex: 0
+TokenType::REAL, lex: 456.591227
+SymbolTable key: lex: varname

@@ -1,0 +1,6 @@
+TokenType::CLASS
+TokenType::SEMICOLON
+TokenType::AND
+TokenType::ADD
+TokenType::REAL, lex: 123.123456
+TokenType::STRING

@@ -1,0 +1,3 @@
+TokenType::ID, lex: thisIsAVeryLongIdLexemeExceding50CharactersAndShouldBeProperlyStored
+TokenType::LITERAL, lex: thisIsAVeryLongLiteralLexemeExceding50CharactersAndShouldBeProperlyStored
+SymbolTable key: lex: thisIsAVeryLongIdLexemeExceding50CharactersAndShouldBeProperlyStored

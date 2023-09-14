@@ -1,0 +1,4 @@
+TokenType::LITERAL, lex: test
+TokenType::LITERAL, lex: test2
+TokenType::LITERAL, lex: test
+TokenType::LITERAL, lex: test2
