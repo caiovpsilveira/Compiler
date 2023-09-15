@@ -20,6 +20,7 @@ void dstring_init(DString* dstring, unsigned initialCapacity)
     dstring->capacity = initialCapacity;
     dstring->length = 0;
     dstring->str = (char*) malloc((dstring->capacity + 1) * sizeof(char));
+    dstring->str[0] = '\0';
 }
 
 void dstring_free(DString* dstring)
@@ -35,7 +36,7 @@ void dstring_clear(DString* dstring)
 
 void dstring_appendChar(DString* dstring, char c)
 {
-    if (dstring->length + 1 == dstring->capacity)
+    if (dstring->length == dstring->capacity)
     {
         dstring->capacity *= DSTRING_GROWTH_FACTOR;
         dstring->str = (char*) realloc(dstring->str, (dstring->capacity + 1) * sizeof(char));
@@ -48,15 +49,13 @@ void dstring_appendChar(DString* dstring, char c)
 
 void dstring_shrinkToFit(DString* dstring)
 {
-    dstring->str = (char*) realloc(dstring->str, (dstring->length + 1) * sizeof(char));
+    dstring->capacity = dstring->length;
+    dstring->str = (char*) realloc(dstring->str, (dstring->capacity + 1) * sizeof(char));
 }
 
 char* dstring_steal(DString* dstring, unsigned newCapacity)
 {
     char* str = dstring->str;
-    dstring->length = 0;
-    dstring->capacity = newCapacity;
-    dstring->str = (char*) malloc((dstring->capacity + 1) * sizeof(char));
-    dstring->str[0] = '\0';
+    dstring_init(dstring, newCapacity);
     return str;
 }
