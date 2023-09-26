@@ -65,6 +65,7 @@ void _la_initReservedSymbols(GHashTable* reservedSymbols)
     _la_insertTokenTypeIntoHash(reservedSymbols, "(", TokenType_OPEN_PAR);
     _la_insertTokenTypeIntoHash(reservedSymbols, ")", TokenType_CLOSE_PAR);
     _la_insertTokenTypeIntoHash(reservedSymbols, ";", TokenType_SEMICOLON);
+    _la_insertTokenTypeIntoHash(reservedSymbols, ",", TokenType_COLON);
     _la_insertTokenTypeIntoHash(reservedSymbols, "=", TokenType_ASSIGN);
 
     _la_insertTokenTypeIntoHash(reservedSymbols, ">", TokenType_GREATER);
@@ -131,6 +132,12 @@ void _la_showMissingSequenceErrorAndExit(LexicalAnalyzer* self, char* missingSeq
 {
     fprintf(stderr, "Error at line %d column %d: missing \"%s\".\n", self->line, self->column, missingSequence);
     exit(-1);
+}
+
+void _la_showInvalidCharErrorAndExit(LexicalAnalyzer* self, char invalidChar)
+{
+    fprintf(stderr, "Error at line %d column %d: invalid char \"%c\".\n", self->line, self->column, invalidChar);
+    exit(-1); 
 }
 
 int _la_isFinalState(unsigned state)
@@ -215,6 +222,7 @@ Token lexical_analyzer_getToken(LexicalAnalyzer* self)
                      c == '(' ||
                      c == ')' ||
                      c == ';' ||
+                     c == ',' ||
                      c == '+' ||
                      c == '-' ||
                      c == '*')
@@ -240,6 +248,10 @@ Token lexical_analyzer_getToken(LexicalAnalyzer* self)
             {
                 dstring_appendChar(&self->lex, c);
                 state = 8;
+            }
+            else
+            {
+                _la_showInvalidCharErrorAndExit(self, c); // invalid starting character
             }
             break;
         case 1:

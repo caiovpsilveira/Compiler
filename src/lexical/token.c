@@ -78,6 +78,9 @@ const char* token_type_toString(TokenType tt)
     case TokenType_SEMICOLON:
         str = "TokenType::SEMICOLON";
         break;
+    case TokenType_COLON:
+        str = "TokenType::COLON";
+        break;
     case TokenType_LOWER:
         str = "TokenType::LOWER";
         break;

@@ -17,7 +17,7 @@
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 #define DEBUG_PRINT(fmt, ...) \
-        do { if (DEBUG) fprintf(stderr, "%s:%d:%s(): " fmt, __FILENAME__, \
+        do { if (DEBUG) fprintf(stdout, "%s:%d:%s(): " fmt, __FILENAME__, \
                                 __LINE__, __func__, ##__VA_ARGS__); } while (0)
 #else
 #define DEBUG_PRINT(fmt, ...) do {} while (0)

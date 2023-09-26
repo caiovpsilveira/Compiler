@@ -32,7 +32,7 @@ digraph lexical_DFA {
 	13 -> 0 [label = "/"];
 	13 -> 12 [label = "other"];
 
-	0 -> 53 [label = "{, }, (, ), ;, +, -, *"];
+	0 -> 53 [label = "{, }, (, ), ;, \",\", +, -, *"];
 	0 -> 1 [label = ">, <, =, !"];
 	1 -> 53 [label = "="];
 	1 -> 53 [label = "other# "];

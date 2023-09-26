@@ -27,6 +27,7 @@ TokenType::CLOSE_CUR
 TokenType::OPEN_PAR
 TokenType::CLOSE_PAR
 TokenType::SEMICOLON
+TokenType::COLON
 TokenType::ID, lex: varname
 TokenType::LITERAL, lex: Text
 TokenType::INTEGER, lex: 123

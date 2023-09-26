@@ -25,6 +25,7 @@ typedef enum TokenType
     TokenType_OPEN_PAR,
     TokenType_CLOSE_PAR,
     TokenType_SEMICOLON,
+    TokenType_COLON,
 
     // Operators
     TokenType_LOWER,
