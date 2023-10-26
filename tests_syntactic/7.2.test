@@ -1,0 +1,31 @@
+class CalculadoraIdade
+    int diaHoje, mesHoje, anoHoje;
+    int diaNascimento, mesNascimento, anoNascimento;
+    int idade;
+{
+    write("Digite o dia de hoje:");
+    read(diaHoje);
+    write("Digite o mês de hoje:");
+    read(mesHoje);
+    write("Digite o ano de hoje:");
+    read(anoHoje);
+
+    write("Digite o dia de nascimento:");
+    read(diaNascimento);
+    write("Digite o mês de nascimento:");
+    read(mesNascimento);
+    write("Digite o ano de nascimento:");
+    read(anoNascimento);
+
+    // Calcular a idade
+    idade = anoHoje - anoNascimento;
+
+    // Verificar se o aniversário já ocorreu este ano
+    if (mesHoje < mesNascimento || (mesHoje == mesNascimento && (diaHoje < diaNascimento)))
+    {
+        idade--;
+    }
+
+    write("Sua idade é: ");
+    write(idade);
+}

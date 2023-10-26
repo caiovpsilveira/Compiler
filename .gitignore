@@ -1,5 +1,4 @@
 bin/*
 build/*
-cross_tests/*
 .vscode/*
 quick_test

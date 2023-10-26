@@ -84,6 +84,7 @@ int token_type_isMulOp(TokenType tt);
 int token_type_isConstant(TokenType tt);
 
 const char* token_type_toString(TokenType tt);
+const char* token_type_toUserString(TokenType tt);
 char* token_lexemeToString(const Token* t);
 void token_destroyLexemeString(char* str);
 

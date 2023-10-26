@@ -1,6 +1,0 @@
-TokenType::ID, lex: varname
-TokenType::ID, lex: varname2
-TokenType::ID, lex: varname
-TokenType::ID, lex: varname2
-SymbolTable key: lex: varname
-SymbolTable key: lex: varname2

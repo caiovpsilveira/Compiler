@@ -116,6 +116,16 @@ void lexical_analyzer_destroy(LexicalAnalyzer* self)
     free(self);
 }
 
+unsigned lexical_analyzer_getLine(const LexicalAnalyzer* self)
+{
+    return self->line;
+}
+
+unsigned lexical_analyzer_getColumn(const LexicalAnalyzer* self)
+{
+    return self->column;
+}
+
 void _la_showExpectedCharErrorAndExit(LexicalAnalyzer* self, char expectedChar, char gotChar)
 {
     fprintf(stderr, "Error at line %d column %d: expected \"%c\", got \"%c\".\n", self->line, self->column, expectedChar, gotChar);

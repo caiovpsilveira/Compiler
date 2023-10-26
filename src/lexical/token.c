@@ -173,6 +173,123 @@ const char* token_type_toString(TokenType tt)
     return str;
 }
 
+const char* token_type_toUserString(TokenType tt)
+{
+    const char* str;
+    switch (tt) {
+    case TokenType_END_OF_FILE:
+        str = "End of File";
+        break;
+    case TokenType_OPEN_CUR:
+        str = "{";
+        break;
+    case TokenType_CLOSE_CUR:
+        str = "}";
+        break;
+    case TokenType_OPEN_PAR:
+        str = "(";
+        break;
+    case TokenType_CLOSE_PAR:
+        str = ")";
+        break;
+    case TokenType_SEMICOLON:
+        str = ";";
+        break;
+    case TokenType_COLON:
+        str = ",";
+        break;
+    case TokenType_LOWER:
+        str = "<";
+        break;
+    case TokenType_LOWER_EQ:
+        str = "<=";
+        break;
+    case TokenType_GREATER:
+        str = ">";
+        break;
+    case TokenType_GREATER_EQ:
+        str = ">=";
+        break;
+    case TokenType_ASSIGN:
+        str = "=";
+        break;
+    case TokenType_EQUALS:
+        str = "==";
+        break;
+    case TokenType_NOT_EQUALS:
+        str = "!=";
+        break;
+    case TokenType_NOT:
+        str = "!";
+        break;
+    case TokenType_ADD:
+        str = "+";
+        break;
+    case TokenType_SUB:
+        str = "-";
+        break;
+    case TokenType_DIV:
+        str = "/";
+        break;
+    case TokenType_MUL:
+        str = "*";
+        break;
+    case TokenType_AND:
+        str = "&&";
+        break;
+    case TokenType_OR:
+        str = "||";
+        break;
+    case TokenType_CLASS:
+        str = "class";
+        break;
+    case TokenType_DO:
+        str = "do";
+        break;
+    case TokenType_WHILE:
+        str = "while";
+        break;
+    case TokenType_READ:
+        str = "read";
+        break;
+    case TokenType_WRITE:
+        str = "write";
+        break;
+    case TokenType_IF:
+        str = "if";
+        break;
+    case TokenType_ELSE:
+        str = "else";
+        break;
+    case TokenType_INT:
+        str = "int";
+        break;
+    case TokenType_STRING:
+        str = "string";
+        break;
+    case TokenType_FLOAT:
+        str = "float";
+        break;
+    case TokenType_ID:
+        str = "identifier";
+        break;
+    case TokenType_LITERAL:
+        str = "literal";
+        break;
+    case TokenType_INTEGER:
+        str = "integer const";
+        break;
+    case TokenType_REAL:
+        str = "real const";
+        break;
+    case TokenType_SIZE:
+    default:
+        assert("Invalid TokenType value" && 0);
+        break;
+    }
+    return str;
+}
+
 char* token_lexemeToString(const Token* t)
 {   
     char* str = NULL;
