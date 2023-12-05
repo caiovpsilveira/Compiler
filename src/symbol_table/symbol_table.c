@@ -10,21 +10,86 @@
 
 #include "symbol_table/symbol_table.h"
 
+#include <assert.h>
 #include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+const char* data_type_toString(DataType dt)
+{
+    const char* str;
+    switch (dt)
+    {
+    case DataType_INT:
+        str = "DataType_INT";
+        break;
+    case DataType_FLOAT:
+        str = "DataType_FLOAT";
+        break;
+    case DataType_STRING:
+        str = "DataType_STRING";
+        break;
+    case DataType_BOOLEAN:
+        str = "DataType_BOOLEAN";
+        break;
+    default:
+        assert("Invalid DataType value" && 0);
+        break;
+    }
+    return str;
+}
+
+const char* data_type_toUserString(DataType dt)
+{
+    const char* str;
+    switch (dt)
+    {
+    case DataType_INT:
+        str = "INT";
+        break;
+    case DataType_FLOAT:
+        str = "FLOAT";
+        break;
+    case DataType_STRING:
+        str = "STRING";
+        break;
+    case DataType_BOOLEAN:
+        str = "BOOLEAN";
+        break;
+    default:
+        assert("Invalid DataType value" && 0);
+        break;
+    }
+    return str;
+}
+
+char* _st_keyToString(const SymbolTableKey* key)
+{   
+    return key->lex;
+}
+
 unsigned _st_hash_func(const void* key)
 {
     const SymbolTableKey* stKey = (const SymbolTableKey*) key;
-    return g_str_hash(stKey->lex);
+    char* keyStr = _st_keyToString(stKey);
+    unsigned ret = g_str_hash(keyStr);
+    // IF KEY IS MODIFIED TO BE OTHER THAN LEX, KEYS HAVE TO BE PROPERLY DELETED
+    return ret;
 }
 
 int _st_key_equal_func(const void* k1, const void* k2)
 {
     const SymbolTableKey* stKey1 = (const SymbolTableKey*) k1;
     const SymbolTableKey* stKey2 = (const SymbolTableKey*) k2;
-    return g_str_equal(stKey1->lex, stKey2->lex);
+
+    char* key1Str = _st_keyToString(stKey1);
+    char* key2Str = _st_keyToString(stKey2);
+
+    int res = g_str_equal(key1Str, key2Str);
+
+    // IF KEY IS MODIFIED TO BE OTHER THAN LEX, KEYS HAVE TO BE PROPERLY DELETED
+
+    return res;
 }
 
 void _st_key_destroy_func(void* key)
@@ -46,9 +111,10 @@ SymbolTableKey* symbol_table_createKey(char* lex)
     return stKeyPtr;
 }
 
-SymbolTableEntry* symbol_table_createEntry()
+SymbolTableEntry* symbol_table_createEntry(DataType dt)
 {
     SymbolTableEntry* stEntryPtr = (SymbolTableEntry*) malloc(sizeof(SymbolTableEntry));
+    stEntryPtr->dtype = dt;
     return stEntryPtr;
 }
 

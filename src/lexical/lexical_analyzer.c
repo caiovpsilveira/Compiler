@@ -29,9 +29,6 @@ struct LexicalAnalyzer
     FILE* file;
 
     GHashTable* reservedSymbols; // hashmap string (reserved symbols) -> TokenType
-    // NOTE: symbol table does not recognize scope levels, as this language is a single scope
-    // Otherwize, the key should be tuple <lex, level>, and should be managed by the syntatical
-    GHashTable* symbolTable;
     GHashTable* literals; // Used as a set to existing literals, to avoid duplicating strings on memory
 };
 
@@ -85,7 +82,7 @@ void _la_initReservedSymbols(GHashTable* reservedSymbols)
     assert(g_hash_table_size(reservedSymbols) == TokenType_SIZE - 5); // All minus END_OF_FILE, ID, LITERAL, INTEGER and REAL
 }
 
-LexicalAnalyzer* lexical_analyzer_new(GHashTable* st, char* filepath)
+LexicalAnalyzer* lexical_analyzer_new(char* filepath)
 {
     LexicalAnalyzer* la = (LexicalAnalyzer*) malloc(sizeof(LexicalAnalyzer));
     la->file = fopen(filepath, "r");
@@ -100,7 +97,6 @@ LexicalAnalyzer* lexical_analyzer_new(GHashTable* st, char* filepath)
     dstring_init(&la->lex, LA_INITIAL_LEX_CAPACITY);
     la->reservedSymbols = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, free); // NULL because it's a literal
     _la_initReservedSymbols(la->reservedSymbols);
-    la->symbolTable = st;
     la->literals = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL); // NULL because its a set (key = val)
     DEBUG_PRINT("Finished constructing Lexical Analyzer.\n");
     return la;
@@ -512,34 +508,17 @@ Token lexical_analyzer_getToken(LexicalAnalyzer* self)
         break;
     case 53:
         curValue = g_hash_table_lookup(self->reservedSymbols, self->lex.str);
-        if (curValue == NULL) // is not a reserved word or symbol -> identifier
+        if (curValue == NULL) // is an identifier
         {
             t.type = TokenType_ID;
-            SymbolTableKey lookupKey = {self->lex.str};
-            if (g_hash_table_lookup_extended(self->symbolTable, &lookupKey, &curKey, &curValue))
-            {
-                // entry already exists. clear lex and assign token st_key to existing one
-                DEBUG_PRINT("SymbolTableEntry for lex \"%s\" already exists in table."
-                    " Assigning to already existing key ptr %p.\n", self->lex.str, curKey);
-                t.st_key = (SymbolTableKey*) curKey;
-                dstring_clear(&self->lex);
-            }
-            else // entry does not exist
-            {
-                dstring_shrinkToFit(&self->lex);
-                char* stKeyLex = dstring_steal(&self->lex, LA_INITIAL_LEX_CAPACITY);
-                SymbolTableKey* stKeyPtr = symbol_table_createKey(stKeyLex);
-                t.st_key = stKeyPtr; // bind token to symbol table
-                SymbolTableEntry* stEntryPtr = symbol_table_createEntry();
-                g_hash_table_insert(self->symbolTable, stKeyPtr, stEntryPtr);
-                DEBUG_PRINT("Token ID with lex \"%s\" inserted into symbol table. Key ptr is %p.\n", stKeyLex, (void*) stKeyPtr);
-            }
+            dstring_shrinkToFit(&self->lex);
+            t.lex = dstring_steal(&self->lex, LA_INITIAL_LEX_CAPACITY);
         }
         else // it is a reserved word or symbol
         {
             t.type = *((const TokenType*) curValue);
-            dstring_clear(&self->lex);
         }
+        dstring_clear(&self->lex);
         break;
     case 54:
         t.type = TokenType_LITERAL;

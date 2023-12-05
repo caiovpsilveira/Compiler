@@ -73,15 +73,9 @@ typedef struct Token
         long longVal;
         double doubleVal;
         const char* literal;
-        const struct SymbolTableKey* st_key;
+        char* lex;
     };
 } Token;
-
-int token_type_isType(TokenType tt);
-int token_type_isRelOp(TokenType tt);
-int token_type_isAddOp(TokenType tt);
-int token_type_isMulOp(TokenType tt);
-int token_type_isConstant(TokenType tt);
 
 const char* token_type_toString(TokenType tt);
 const char* token_type_toUserString(TokenType tt);

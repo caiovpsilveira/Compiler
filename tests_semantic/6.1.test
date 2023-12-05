@@ -1,0 +1,13 @@
+class MinhaClasse
+    float a, b, c, media;
+{
+    write("Digite um número");
+    read(a);
+    write("Digite outro número: ");
+    read(b);
+    write("Digite mais um número: ");
+    read(c);
+    media = (a + b + c) / 3.0;
+    write("A média aritmética dos números é: ");
+    write(media);
+}

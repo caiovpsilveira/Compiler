@@ -17,7 +17,7 @@
 
 typedef struct LexicalAnalyzer LexicalAnalyzer;
 
-LexicalAnalyzer* lexical_analyzer_new(GHashTable* st, char* filepath);
+LexicalAnalyzer* lexical_analyzer_new(char* filepath);
 void lexical_analyzer_destroy(LexicalAnalyzer* self);
 
 unsigned lexical_analyzer_getLine(const LexicalAnalyzer* self);

@@ -19,27 +19,31 @@
 
 #include <glib.h>
 
+typedef enum DataType
+{
+    DataType_INT,
+    DataType_FLOAT,
+    DataType_STRING,
+    DataType_BOOLEAN
+} DataType;
+
 typedef struct SymbolTableKey
 {
     // TODO: add level to be able to make multiple scopes
     char* lex;
 } SymbolTableKey;
 
-typedef enum DataType
-{
-    DataType_INTEGER,
-    DataType_FLOAT,
-    DataType_STRING
-} DataType;
-
 typedef struct SymbolTableEntry
 {
-    DataType type;
+    DataType dtype;
     // add more things...
 } SymbolTableEntry;
 
+const char* data_type_toString(DataType dt);
+const char* data_type_toUserString(DataType dt);
+
 SymbolTableKey* symbol_table_createKey(char* lex);
-SymbolTableEntry* symbol_table_createEntry();
+SymbolTableEntry* symbol_table_createEntry(DataType dt);
 
 GHashTable* symbol_table_new();
 void symbol_table_destroy(GHashTable* self);

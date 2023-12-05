@@ -2,9 +2,10 @@ CC = gcc
 CFLAGS = -Iinclude
 CFLAGS += $(shell pkg-config --cflags glib-2.0)
 CFLAGS += -Wall -Wextra -Wpedantic
-CFLAGS += -Wfloat-equal -Wshadow -Wpointer-arith -Wcast-align -Wswitch-enum -Wswitch-default -Wunreachable-code
+CFLAGS += -Wfloat-equal -Wshadow -Wpointer-arith -Wcast-align -Wswitch-default -Wunreachable-code
 CFLAGS += -Wcast-qual
 CFLAGS += -Wconversion
+CFLAGS += -Wunused-result
 
 LINKER_FLAGS = $(shell pkg-config --libs glib-2.0)
 DEBUG_CFLAGS = -DDEBUG

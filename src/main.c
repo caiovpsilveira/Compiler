@@ -26,8 +26,8 @@ int main(int argc, char** argv)
         exit(-1);
     }
 
+    LexicalAnalyzer* la = lexical_analyzer_new(argv[1]);
     GHashTable* st = symbol_table_new();
-    LexicalAnalyzer* la = lexical_analyzer_new(st, argv[1]);
     SyntacticAnalyzer* sa = syntactic_analyzer_new(st, la);
 
     syntactic_analyzer_start(sa);

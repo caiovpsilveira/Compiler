@@ -18,43 +18,6 @@
 
 #define TOKEN_LEXEME_MAX_CONVERSION_SIZE 50
 
-int token_type_isType(TokenType tt)
-{
-    return tt == TokenType_INT ||
-           tt == TokenType_STRING ||
-           tt == TokenType_FLOAT;
-}
-
-int token_type_isRelOp(TokenType tt)
-{
-    return tt == TokenType_GREATER ||
-           tt == TokenType_GREATER_EQ ||
-           tt == TokenType_LOWER ||
-           tt == TokenType_LOWER_EQ ||
-           tt == TokenType_EQUALS ||
-           tt == TokenType_NOT_EQUALS;
-}
-
-int token_type_isAddOp(TokenType tt)
-{
-    return tt == TokenType_ADD ||
-           tt == TokenType_SUB ||
-           tt == TokenType_OR;
-}
-
-int token_type_isMulOp(TokenType tt)
-{
-    return tt == TokenType_MUL ||
-           tt == TokenType_DIV ||
-           tt == TokenType_AND;
-}
-
-int token_type_isConstant(TokenType tt)
-{
-    return tt == TokenType_INTEGER ||
-           tt == TokenType_REAL;
-}
-
 const char* token_type_toString(TokenType tt)
 {
     const char *str;
@@ -297,8 +260,8 @@ char* token_lexemeToString(const Token* t)
     // create copy so the token will not be modified
     if (t->type == TokenType_ID)
     {
-        str = (char*) malloc((strlen(t->st_key->lex) + 1) * sizeof(char));
-        strcpy(str, t->st_key->lex);
+        str = (char*) malloc((strlen(t->lex) + 1) * sizeof(char));
+        strcpy(str, t->lex);
     }
     else if (t->type == TokenType_LITERAL)
     {
